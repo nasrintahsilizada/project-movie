@@ -22,16 +22,20 @@ const supabaseUrl = getEnv('VITE_SUPABASE_URL');
 const supabaseAnonKey = getEnv('VITE_SUPABASE_ANON_KEY');
 
 if (!openaiKey) {
-  throw new Error("VITE_OPENAI_API_KEY missing in .env");
+  console.warn("VITE_OPENAI_API_KEY missing in environment; OpenAI client not initialized.");
 }
 
-export const openai = new OpenAI({
-  apiKey: openaiKey,
-  dangerouslyAllowBrowser: true,
-});
+export const openai = openaiKey
+  ? new OpenAI({ apiKey: openaiKey, dangerouslyAllowBrowser: true })
+  : null;
+
 if (!supabaseUrl || !supabaseAnonKey) {
-  throw new Error("Supabase environment variables missing");
+  console.warn("Supabase environment variables missing; Supabase client not initialized.");
 }
 
-export const supabase = createClient(supabaseUrl, supabaseAnonKey);
+export const supabase = supabaseUrl && supabaseAnonKey
+  ? createClient(supabaseUrl, supabaseAnonKey)
+  : null;
+
+export const isFallback = !openai || !supabase;
 

@@ -18,7 +18,8 @@ export default function QuestionView({ onSubmit, loading }) {
 
   return (
     <div className="p-6 max-w-lg mx-auto">
-      <h1 className="text-2xl font-bold mb-4 text-center">🎬 PopChoice</h1>
+      <h1 className="text-2xl font-bold mb-4 text-center brand-heading">🎬 PopChoice</h1>
+      <p className="hint text-center mb-4">Tell us a favorite movie and we'll recommend something great.</p>
       <form onSubmit={handleSubmit} className="space-y-4">
         <div>
           <label className="block font-semibold">
@@ -67,7 +68,7 @@ export default function QuestionView({ onSubmit, loading }) {
         <button
           type="submit"
           disabled={loading}
-          className="bg-green-500 text-white rounded w-full p-3 font-bold hover:bg-green-600"
+          className="btn-primary w-full"
         >
           {loading ? "Finding your movie..." : "Find My Movie 🎥"}
         </button>
